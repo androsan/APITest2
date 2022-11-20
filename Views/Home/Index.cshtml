@@ -1,0 +1,79 @@
+﻿
+
+<environment include="Development">
+<h1 class="devmode">DEVELOPMENT MODE</h1>
+</environment>
+
+@model List<CS_webapp.Models.SeznamUporabnikov>
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Seznam uporabnikov <span style="font-size:18px">(@Model.Count() items)</span></h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Home" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp;Dodaj uporabnika
+            </a>
+            <a asp-controller="Home" asp-action="Login" class="btn btn-primary">
+                <i class="fas fa-arrow-right"></i> &nbsp;LOGIN
+            </a>
+            <a asp-controller="Home" asp-action="RegisteredUsers" class="btn btn-primary">
+                <i class="fa fa-envelope-o"></i> &nbsp;Registrirani uporabniki
+            </a>
+        </div>
+    </div>
+</div>
+
+
+@if (Model.Count() > 0)
+{
+
+    <table class="table table-bordered table-striped text-center">
+        <thead>
+            <tr>
+                <th style="width: 25%; vertical-align:middle; font-size: 30px">Ime</th>
+                <!--<th>Geslo (MD5 hashed)</th>-->
+                <th style="vertical-align:middle; font-size:25px">Priimek</th>
+                <th style="vertical-align:middle; font-size:25px">Elektronski naslov</th>
+                <th style="vertical-align:middle; font-size:25px">Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td style="vertical-align:middle; font-size:20px">@obj.Ime</td>
+                    <td style="vertical-align:middle; font-size:20px">@obj.Priimek</td>
+                    <td style="vertical-align:middle; font-size:20px">@obj.Email</td>
+                    
+                    <td class="text-center">
+                        <div class="w-15 btn-group" role="group">
+                            <a id="dodajButton" style="background-color:#009900" asp-controller="Home" asp-route-Id="@obj.ID_SeznamUporabnikov" asp-action="Prijavi" class="btn btn-primary mx-4">
+                                <i class="fas fa-share"></i> &nbsp; Dodaj
+                            </a>
+                        </div>
+                        <a asp-controller="Home" asp-route-Id="@obj.ID_SeznamUporabnikov" asp-action="Delete">
+                            <img src="~/img/smetnjak.png" style="width:10%;height:10%" />
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+else
+{
+    <h4><br></br></h4>
+    <h4 class="text-center" style="font-size:17px">Seznam uporabnikov je prazen!</h4>
+}

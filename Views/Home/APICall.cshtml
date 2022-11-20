@@ -1,0 +1,10 @@
+﻿@model List<CS_webapp.Models.API.VhodniPodatki>
+
+<p id="p1"></p>
+
+<script>
+    var response = @Json.Serialize(Model);
+    var responseString = JSON.stringify(response);
+    console.log(responseString);
+    document.getElementById("p1").innerHTML = responseString;
+</script>
